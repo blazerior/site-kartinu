@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ — Лаптева</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <!-- LOGIN -->
+    <section class="card" id="login-screen">
+      <h1>Вход</h1>
+      <p class="hint">GitHub username + Personal Access Token (fine-grained, права <code>Contents: read/write</code> и <code>Actions: read/write</code> для целевого репозитория).</p>
+      <form id="login-form">
+        <label>Repo (owner/name)<input id="f-repo" required placeholder="username/ekaterina-lapteva" /></label>
+        <label>GitHub username<input id="f-user" required autocomplete="username" /></label>
+        <label>Personal Access Token<input id="f-token" type="password" required autocomplete="current-password" /></label>
+        <label class="checkbox"><input id="f-remember" type="checkbox" /> Запомнить в этом браузере</label>
+        <button type="submit">Войти</button>
+      </form>
+      <p class="error" id="login-error" hidden></p>
+    </section>
+
+    <!-- WORKSPACE -->
+    <section class="workspace" id="workspace" hidden>
+      <header class="ws-head">
+        <h1>Управление картинами</h1>
+        <button class="link" id="logout">Выйти</button>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="add">Добавить</button>
+        <button class="tab" data-tab="remove">Удалить</button>
+      </nav>
+
+      <!-- ADD -->
+      <div class="tab-pane active" data-pane="add">
+        <form id="add-form">
+          <label>Серия<select id="add-series" required></select></label>
+          <label>Название<input id="add-title" required maxlength="120" /></label>
+          <label>Материалы<input id="add-material" required placeholder="Холст, масло, пастель" /></label>
+          <label>Размер<input id="add-size" required placeholder="100×80 см" /></label>
+          <label>Год<input id="add-year" required placeholder="2026" /></label>
+          <label>Файл изображения
+            <input id="add-file" type="file" accept="image/jpeg,image/png,image/webp" required />
+          </label>
+          <button type="submit">Добавить картину</button>
+        </form>
+      </div>
+
+      <!-- REMOVE -->
+      <div class="tab-pane" data-pane="remove">
+        <form id="remove-form">
+          <label>Серия<select id="rm-series" required></select></label>
+          <label>Картина<select id="rm-painting" required></select></label>
+          <button type="submit" class="danger">Удалить</button>
+        </form>
+      </div>
+
+      <!-- LOG -->
+      <div class="log" id="log" hidden>
+        <h2>Статус</h2>
+        <pre id="log-text"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
