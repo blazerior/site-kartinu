@@ -1,2 +1,2 @@
-# ekaterina-lapteva
-ekaterina-lapteva-site
+# site kartinu
+site kartinu
