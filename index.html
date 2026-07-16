@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Екатерина Лаптева — Художник</title>
+  <meta name="description" content="Екатерина Лаптева — московский художник. Живопись, графика, керамика." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109042510', 'ym');
+
+    ym(109042510, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109042510" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  <link rel="canonical" href="https://ekaterina-lapteva.com/" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Основная навигация">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" data-i18n="nav.logo">ЕКАТЕРИНА ЛАПТЕВА</a>
+
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="#hero"     class="nav-link active" data-i18n="nav.home">Главная</a></li>
+        <li><a href="#about"    class="nav-link"        data-i18n="nav.about">Обо мне</a></li>
+        <li><a href="#works"    class="nav-link"        data-i18n="nav.works">Работы</a></li>
+        <li><a href="#contacts" class="nav-link"        data-i18n="nav.contacts">Контакты</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <div class="lang-switch" role="group" aria-label="Язык">
+          <button class="lang-btn active" data-lang="ru" aria-pressed="true">RU</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE OVERLAY -->
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+    <button class="overlay-close" id="overlayClose" aria-label="Закрыть меню">✕</button>
+    <ul role="list">
+      <li><a href="#hero"     class="overlay-link" data-i18n="nav.home">Главная</a></li>
+      <li><a href="#about"    class="overlay-link" data-i18n="nav.about">Обо мне</a></li>
+      <li><a href="#works"    class="overlay-link" data-i18n="nav.works">Работы</a></li>
+      <li><a href="#contacts" class="overlay-link" data-i18n="nav.contacts">Контакты</a></li>
+    </ul>
+    <div class="overlay-lang">
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <span class="lang-sep">|</span>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Главная">
+    <div class="hero-bg" id="heroBg">
+      <img src="images/hero.jpg" alt="" aria-hidden="true" loading="eager" />
+    </div>
+    <div class="hero-content">
+      <p class="hero-subtitle reveal" data-i18n="hero.subtitle">Художник · Москва</p>
+      <h1 class="hero-title reveal">
+        <span data-i18n="hero.name.first">ЕКАТЕРИНА</span><br>
+        <span class="hero-title-indent" data-i18n="hero.name.last">ЛАПТЕВА</span>
+      </h1>
+      <p class="hero-tagline reveal" data-i18n="hero.tagline">С самого детства я знала, что я художник.</p>
+      <a href="#works" class="hero-cta reveal" data-i18n="hero.cta">Смотреть работы</a>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about section" id="about" aria-labelledby="about-heading">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <img src="images/portrait.jpg" alt="Портрет художника Екатерины Лаптевой" loading="lazy" />
+        </div>
+        <div class="about-text">
+          <p class="section-label reveal" data-i18n="about.label">Обо мне</p>
+          <h2 class="section-heading reveal" id="about-heading" data-i18n="about.heading">Биография</h2>
+          <p class="about-para reveal" data-i18n="about.p1">
+            Родилась в Самаре, сейчас живу в Москве. С самого детства знала, что я художник. Пробовала себя в разных направлениях: много лет работала декоратором, сотрудничала с «Первым каналом», пишу сценарии. Сейчас я двигаюсь от керамики к живописи. В моих работах соединяются символизм и поиск чудесного. Для меня важны метафора, цвет, свет, символ, глубина и экспрессия — всё это имеет значение.
+          </p>
+          <p class="about-cv-link reveal"><a href="cv.html" data-i18n="about.cv">CV художника →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="statement section" id="statement" aria-label="Высказывание художника">
+    <div class="container">
+      <div class="statement-inner">
+        <p class="statement-label reveal">Высказывание</p>
+        <div class="statement-collapse collapsed reveal" id="statementCollapse">
+          <div class="statement-text">
+            <p>Моё творчество строится на контрасте и парадоксе: я стремлюсь к глубине, но сохраняю лёгкость детской игры, превращая процесс в диалог между контролем и случайностью. Я работаю открытыми цветами, иногда приглушая цвет лессировками; мне нравится менять скорость касаний с поверхностью — будь то холст или бумага, превращая процесс из медитативного погружения в экспрессивные всплески.</p>
+            <p>Меня интересуют темы космоса, нейрофизиологии, потустороннего, подсознания, квантовой физики и теории относительности. Люблю цветы.</p>
+            <p>На первые свои заработанные деньги я купила книгу-энциклопедию «Символы, знаки, эмблемы» В. Андреева. Сейчас я создаю свои, часто обращаясь и ища ресурс в детстве. Например, вспоминая себя и наблюдая за своим ребёнком, я зафиксировала этот переходный момент подражания знакам, формирования письменности — и теперь использую этот приём.</p>
+            <p>Мне любопытны состояния, напоминающие откровение. Когда-то в детстве я увидела «чудо» на небе — вспышки, превращающиеся в «луны». Смогу ли я повторить то ощущение от встречи с чем-то прекрасным, загадочным, удивительным, волшебным? Не знаю. Объяснения этому я ищу до сих пор.</p>
+          </div>
+        </div>
+        <button class="statement-toggle reveal" id="statementToggle" aria-expanded="false">
+          <span class="statement-toggle-text">Читать полностью</span>
+          <span class="statement-toggle-icon" aria-hidden="true">↓</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section class="works section" id="works" aria-labelledby="works-heading">
+    <div class="container">
+      <p class="section-label reveal" data-i18n="works.label">Работы</p>
+      <h2 class="section-heading reveal" id="works-heading" data-i18n="works.heading">Серии</h2>
+    </div>
+
+    <!-- Series list -->
+    <div class="series-list">
+<!-- GENERATED:SERIES:START -->
+      <!-- Судьба человека -->
+      <article class="series reveal" data-series="fate">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="None">Судьба человека</h3>
+            <a href="series-fate.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/небесная канцелярия.jpg" alt="Небесная канцелярия" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.1.title">Небесная канцелярия</span> · <span data-i18n="card.fate.1.mat">Холст, масло, пастель</span> · 100×80 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/моменты.jpg" alt="Моменты" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.2.title">Моменты</span> · <span data-i18n="card.fate.2.mat">Холст, масло, карандаш</span> · 120×120 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Решение.jpg" alt="Решение" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.3.title">Решение</span> · <span data-i18n="card.fate.3.mat">Холст, масло, карандаш</span> · 120×120 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/ось.jpg" alt="Ось" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.4.title">Ось</span> · <span data-i18n="card.fate.4.mat">Холст, масло, карандаш, пастель</span> · 50×100 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/я + я.jpg" alt="Я+Я" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.5.title">Я+Я</span> · <span data-i18n="card.fate.5.mat">Холст, масло, пастель</span> · 30×25 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Неизведанное.jpg" alt="Неизведанное" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.6.title">Неизведанное</span> · <span data-i18n="card.fate.6.mat">Холст, масло, пастель</span> · 50×50 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/вечные перемены.jpg" alt="Вечные перемены" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.7.title">Вечные перемены</span> · <span data-i18n="card.fate.7.mat">Холст, масло, карандаш, пастель</span> · 60×60 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/сейчас.jpg" alt="Сейчас" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.8.title">Сейчас</span> · <span data-i18n="card.fate.8.mat">Холст, масло, пастель</span> · 40×40 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/эволюция.jpg" alt="Эволюция" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.9.title">Эволюция</span> · <span data-i18n="card.fate.9.mat">Холст, масло, пастель</span> · 30×20 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Красной нитью 1.jpg" alt="Красной нитью 1" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.10.title">Красной нитью 1</span> · <span data-i18n="card.fate.10.mat">Бумага, карандаш, гуашь, пастель</span> · 30×30 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Красной нитью 2.jpg" alt="Красной нитью 2" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.11.title">Красной нитью 2</span> · <span data-i18n="card.fate.11.mat">Бумага, карандаш, гуашь, пастель</span> · 30×30 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/мечта.jpg" alt="Мечта" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.fate.12.title">Мечта</span> · <span data-i18n="card.fate.12.mat">Бумага, карандаш, гуашь, пастель</span> · 30×30 см · 2026</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Голландский натюрморт -->
+      <article class="series reveal" data-series="dutch">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.dutch">Голландский натюрморт</h3>
+            <a href="series-dutch.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/голландский натюрморт с лимоном.jpg" alt="Голландский натюрморт с лимоном" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.dutch.1.title">Голландский натюрморт с лимоном</span> · <span data-i18n="card.dutch.1.mat">Холст, масло, пастель</span> · 60×60 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/голландский натюрморт с крыжовником.jpg" alt="Голландский натюрморт с крыжовником" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.dutch.2.title">Голландский натюрморт с крыжовником</span> · <span data-i18n="card.dutch.2.mat">Холст, масло, пастель</span> · 50×50 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Голландский натюрморт с раком.jpg" alt="Голландский натюрморт с раком" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.dutch.3.title">Голландский натюрморт с раком</span> · <span data-i18n="card.dutch.3.mat">Холст, масло, пастель</span> · 80×40 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/голландский натюрморт с чашей.jpg" alt="Голландский натюрморт с чашей" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.dutch.4.title">Голландский натюрморт с чашей</span> · <span data-i18n="card.dutch.4.mat">Холст, масло, пастель</span> · 60×60 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Голландский натюрморт с фруктами.jpg" alt="Голландский натюрморт с фруктами" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.dutch.5.title">Голландский натюрморт с фруктами</span> · <span data-i18n="card.dutch.5.mat">Холст, масло</span> · 24×24 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Голландский натюрморт с кубком-наутилусом.jpg" alt="Голландский натюрморт с кубком-наутилусом" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.dutch.6.title">Голландский натюрморт с кубком-наутилусом</span> · <span data-i18n="card.dutch.6.mat">Холст, масло, пастель</span> · 30×30 см · 2025</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Разговор с ветром -->
+      <article class="series reveal" data-series="wind">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.wind">Разговор с ветром</h3>
+            <a href="series-wind.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/солнечные зайчики.jpg" alt="Солнечные зайчики" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.1.title">Солнечные зайчики</span> · <span data-i18n="card.wind.1.mat">Холст, масло</span> · 50×50 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/разговор с ветром.jpg" alt="Разговор с ветром 1" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.2.title">Разговор с ветром 1</span> · <span data-i18n="card.wind.2.mat">Бумага, карандаш</span> · 41×29 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/вольный ветер.jpg" alt="Вольный ветер" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.3.title">Вольный ветер</span> · <span data-i18n="card.wind.3.mat">Бумага, карандаш</span> · А4 · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Разговор с ветром 2.jpg" alt="Разговор с ветром 2" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.4.title">Разговор с ветром 2</span> · <span data-i18n="card.wind.4.mat">Бумага, карандаш</span> · 12×12 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/штормовое предупреждение.jpg" alt="Штормовое предупреждение" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.5.title">Штормовое предупреждение</span> · <span data-i18n="card.wind.5.mat">Бумага, карандаш</span> · А4 · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Разговор с ветром 3.jpg" alt="Разговор с ветром 3" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.6.title">Разговор с ветром 3</span> · <span data-i18n="card.wind.6.mat">Бумага, карандаш</span> · 29×29 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Весенний ветер.jpg" alt="Весенний ветер" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.7.title">Весенний ветер</span> · <span data-i18n="card.wind.7.mat">Холст, масло, акрил</span> · 50×50 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Тайное движение.jpg" alt="Тайное движение" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.wind.8.title">Тайное движение</span> · <span data-i18n="card.wind.8.mat">Холст, масло, акрил</span> · 50×50 см · 2024</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- В начале было яйцо -->
+      <article class="series reveal" data-series="egg">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.egg">В начале было яйцо</h3>
+            <a href="series-egg.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/Автопортрет.jpg" alt="Автопортрет" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.egg.0.title">Автопортрет</span> · <span data-i18n="card.egg.0.mat">Холст на картоне, акварель, акрил</span> · 60×50 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/дочки матери.jpg" alt="Дочки — матери" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.egg.1.title">Дочки — матери</span> · <span data-i18n="card.egg.1.mat">Холст на картоне, масло, акрил</span> · 70×50 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/пришелец.jpg" alt="Пришелец" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.egg.2.title">Пришелец</span> · <span data-i18n="card.egg.2.mat">Холст на картоне, масло</span> · 60×50 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Драгоценное.jpg" alt="Драгоценное" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.egg.3.title">Драгоценное</span> · <span data-i18n="card.egg.3.mat">Холст на картоне, масло</span> · 70×50 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/птички.jpg" alt="Птички" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.egg.4.title">Птички</span> · <span data-i18n="card.egg.4.mat">Холст на картоне, масло, акрил</span> · 70×50 см · 2022</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Форма жизни -->
+      <article class="series reveal" data-series="life">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.life">Форма жизни</h3>
+            <a href="series-life.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/форма жизни.jpg" alt="Форма жизни" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.life.1.title">Форма жизни</span> · <span data-i18n="card.life.1.mat">Холст, масло, акрил, пастель</span> · 80×60 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Сверхновая Цветозвезда.jpg" alt="Сверхновая Цветозвезда" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.life.2.title">Сверхновая Цветозвезда</span> · <span data-i18n="card.life.2.mat">Холст, масло, акрил, пастель</span> · 100×100 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Тишина.jpg" alt="Тишина" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.life.3.title">Тишина</span> · <span data-i18n="card.life.3.mat">Холст, масло, акрил, пастель</span> · 50×50 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Глубина.jpg" alt="Глубина" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.life.4.title">Глубина</span> · <span data-i18n="card.life.4.mat">Холст, масло, акрил, пастель</span> · 30×20 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Чудотворение.jpg" alt="Чудотворение" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.life.5.title">Чудотворение</span> · <span data-i18n="card.life.5.mat">Холст, масло, акрил, пастель</span> · 150×130 см · 2025</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- В поисках чуда -->
+      <article class="series reveal" data-series="miracle">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.miracle">В поисках чуда</h3>
+            <a href="series-miracle.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/Тайная вечеря.jpg" alt="Тайная вечеря" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.0.title">Тайная вечеря</span> · <span data-i18n="card.miracle.0.mat">Холст, масло, карандаш, пастель</span> · 50×70 см · 2026</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/семь лун.jpg" alt="Семь лун" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.1.title">Семь лун</span> · <span data-i18n="card.miracle.1.mat">Холст, масло, акрил, пастель</span> · 85 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/танец жизни.jpg" alt="Танец жизни" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.2.title">Танец жизни</span> · <span data-i18n="card.miracle.2.mat">Холст, масло, акрил, пастель</span> · 85 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Аналемма.jpg" alt="Аналемма" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.3.title">Аналемма</span> · <span data-i18n="card.miracle.3.mat">Холст, масло, акрил, пастель</span> · 85 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/ловец бабочек.jpg" alt="Ловец бабочек" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.4.title">Ловец бабочек</span> · <span data-i18n="card.miracle.4.mat">Холст, масло, акрил, пастель</span> · 60×60 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/в поисках чуда.jpg" alt="В поисках чуда" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.5.title">В поисках чуда</span> · <span data-i18n="card.miracle.5.mat">Холст, масло, акрил, пастель</span> · 100×50 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/жемчужина.jpg" alt="Жемчужина" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.6.title">Жемчужина</span> · <span data-i18n="card.miracle.6.mat">Холст, масло, акрил, пастель</span> · 45×35 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Ливень света в эхе рассвета.jpg" alt="Ливень света в эхе рассвета" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.7.title">Ливень света в эхе рассвета</span> · <span data-i18n="card.miracle.7.mat">Холст, масло, акрил, пастель</span> · 35×25 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Выше потолка.jpg" alt="Выше потолка" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.8.title">Выше потолка</span> · <span data-i18n="card.miracle.8.mat">Холст, масло, акрил, пастель</span> · 24×30 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/чудесный знак.jpg" alt="Чудесный знак" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.9.title">Чудесный знак</span> · <span data-i18n="card.miracle.9.mat">Холст, масло, акрил, пастель</span> · А4 · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/другое измерение.jpg" alt="Другое измерение" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.10.title">Другое измерение</span> · <span data-i18n="card.miracle.10.mat">Холст, масло, акрил, пастель</span> · 50×50 см · 2025</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Нежность.jpg" alt="Нежность" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.miracle.11.title">Нежность</span> · <span data-i18n="card.miracle.11.mat">Холст, масло, акрил, пастель</span> · 60×50 см · 2025</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Графика -->
+      <article class="series reveal" data-series="graphics">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.graphics">Графика</h3>
+            <a href="series-graphics.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/Где то там наверху.jpg" alt="Где-то там наверху" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.graphics.1.title">Где-то там наверху</span> · <span data-i18n="card.graphics.1.mat">Бумага, тушь</span> · 24×27 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Осколки.jpg" alt="Осколки" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.graphics.2.title">Осколки</span> · <span data-i18n="card.graphics.2.mat">Бумага, тушь</span> · 27×26 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Потусторонее.jpg" alt="Потустороннее" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.graphics.3.title">Потустороннее</span> · <span data-i18n="card.graphics.3.mat">Бумага, тушь</span> · 15×20 см · 2024</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Лучизм -->
+      <article class="series reveal" data-series="lucism">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.lucism">Лучизм</h3>
+            <a href="series-lucism.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/Птицы.jpg" alt="Птицы" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.1.title">Птицы</span> · <span data-i18n="card.lucism.1.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Кот улыбается.jpg" alt="Кот улыбается" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.2.title">Кот улыбается</span> · <span data-i18n="card.lucism.2.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Сомный дракон.jpg" alt="Сомный дракон" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.3.title">Сомный дракон</span> · <span data-i18n="card.lucism.3.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Сфера.jpg" alt="Сфера" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.4.title">Сфера</span> · <span data-i18n="card.lucism.4.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Чистый луч.jpg" alt="Чистый луч" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.5.title">Чистый луч</span> · <span data-i18n="card.lucism.5.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/LED.jpg" alt="LED" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.6.title">LED</span> · <span data-i18n="card.lucism.6.mat">Бумага, акварель, карандаш</span> · 20×20 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Ленты.jpg" alt="Ленты" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.7.title">Ленты</span> · <span data-i18n="card.lucism.7.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Весна.jpg" alt="Весна" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.8.title">Весна</span> · <span data-i18n="card.lucism.8.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Чеснок.jpg" alt="Чеснок" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.lucism.9.title">Чеснок</span> · <span data-i18n="card.lucism.9.mat">Бумага, акварель, карандаш</span> · 24×24 см · 2024</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Музыка в красках -->
+      <article class="series reveal" data-series="music">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.music">Музыка в красках</h3>
+            <a href="series-music.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/Моцарт.jpg" alt="Моцарт" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.music.1.title">Моцарт</span> · <span data-i18n="card.music.1.mat">А4 Нотный лист, карандаш</span> · А4 · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Огонь.jpg" alt="Огонь" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.music.2.title">Огонь</span> · <span data-i18n="card.music.2.mat">А4 Нотный лист, карандаш</span> · А4 · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Ветер.jpg" alt="Ветер" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.music.3.title">Ветер</span> · <span data-i18n="card.music.3.mat">А4 Нотный лист, карандаш</span> · А4 · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Philip Glass Morning Passages.jpg" alt="Philip Glass &#34;Morning Passages&#34;" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.music.4.title">Philip Glass &#34;Morning Passages&#34;</span> · <span data-i18n="card.music.4.mat">А4 Нотный лист, карандаш</span> · А4 · 2024</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/Вода.jpg" alt="Вода" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.music.5.title">Вода</span> · <span data-i18n="card.music.5.mat">А4 Нотный лист, карандаш</span> · А4 · 2024</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Керамика -->
+      <article class="series reveal" data-series="ceramics">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="series.ceramics">Керамика</h3>
+            <a href="series-ceramica.html" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+            <div class="card" role="listitem">
+              <img src="images/ящик пандоры.jpg" alt="Ящик Пандоры" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.1.title">Ящик Пандоры</span> · <span data-i18n="card.ceramics.1.mat">Глина шамот, глазурь, стекло</span> · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/жизнь игра.jpg" alt="Жизнь игра" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.2.title">Жизнь игра</span> · <span data-i18n="card.ceramics.2.mat">Шамот, глазурь</span> · 65 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/плод фантазий.jpg" alt="Плод фантазий" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.3.title">Плод фантазий</span> · <span data-i18n="card.ceramics.3.mat">Шамот, глазурь</span> · 23×45 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/миром правит любовь.jpg" alt="Миром правит любовь" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.4.title">Миром правит любовь</span> · <span data-i18n="card.ceramics.4.mat">Шамотная глина, глазурь. На металлических подставках</span> · 170 см · 2023</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/без цензуры.jpg" alt="Без цензуры" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.5.title">Без цензуры</span> · <span data-i18n="card.ceramics.5.mat">Шамотная глина, глазурь</span> · 42 см · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/взгляд.jpg" alt="Взгляд" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.6.title">Взгляд</span> · <span data-i18n="card.ceramics.6.mat">Шамотная глина, глазурь</span> · 2022</p>
+            </div>
+            <div class="card" role="listitem">
+              <img src="images/упущенное время.jpg" alt="Упущенное время" loading="lazy" />
+              <p class="card-caption"><span data-i18n="card.ceramics.7.title">Упущенное время</span> · <span data-i18n="card.ceramics.7.mat">Шамотная глина, глазурь</span> · 2022</p>
+            </div>
+          </div>
+        </div>
+      </article>
+<!-- GENERATED:SERIES:END -->
+    </div><!-- /series-list -->
+
+    <div class="works-inquiry reveal">
+      <p data-i18n="works.inquiry">Наличие и стоимость работ уточняйте</p>
+      <a href="#contacts" data-i18n="works.inquiry.cta">в разделе контактов →</a>
+    </div>
+
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="contacts section" id="contacts" aria-labelledby="contacts-heading">
+    <div class="container">
+      <p class="section-label reveal" data-i18n="contacts.label">Контакты</p>
+      <h2 class="section-heading reveal" id="contacts-heading" data-i18n="contacts.heading">Связаться</h2>
+
+      <div class="contacts-grid">
+        <div class="contacts-info reveal">
+          <p class="contact-name">Лаптева Екатерина Викторовна</p>
+        </div>
+        <div class="contacts-social reveal">
+          <a href="https://instagram.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            Instagram
+          </a>
+          <a href="https://t.me" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 5L2 12.5l7 1M21 5l-5 15-4-4.5M21 5L9 13.5m0 0V19l2.5-2.5"/></svg>
+            Telegram
+          </a>
+          <a href="https://vk.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="ВКонтакте">
+            <span class="social-vk-icon" aria-hidden="true">VK</span>
+            ВКонтакте
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <p class="footer-copy">© 2026 <span data-i18n="footer.name">Екатерина Лаптева</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

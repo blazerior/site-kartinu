@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /_uploads/
+Disallow: /scripts/
+Disallow: /*.md$
+
+Sitemap: https://ekaterina-lapteva.com/sitemap.xml
