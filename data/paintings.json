@@ -638,7 +638,7 @@
       "title": "Графика",
       "title_en": null,
       "meta_description": "Серия «Графика» — Екатерина Лаптева. Бумага, акварель, гуашь, пастель.",
-      "years": "2024–2026",
+      "years": "2024",
       "materials": "Бумага, тушь",
       "materials_en": "Paper, ink",
       "hero_image": "images/Где то там наверху.jpg",
@@ -677,17 +677,6 @@
             "images/Потусторонее.jpg"
           ],
           "description_html": null
-        },
-        {
-          "title": "Тестовая картина",
-          "i18n": null,
-          "material": "красивые",
-          "size": "100х56",
-          "year": "2026",
-          "images": [
-            "images/Тестовая картина.jpg"
-          ],
-          "description_html": "<p>ы</p>"
         }
       ]
     },
