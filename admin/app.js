@@ -1,9 +1,9 @@
-// ─── Admin frontend ───────────────────────────────────────────
-// Auth: GitHub PAT (fine-grained, Contents r/w + Actions r/w on repo).
-// Flow:
-//   1. Upload image (base64) → PUT /repos/{repo}/contents/_uploads/{tmp}
-//   2. POST /repos/{repo}/dispatches with client_payload {action, ...}
-//   3. Poll /repos/{repo}/actions/runs to show status
+// ─── Админка: логика ──────────────────────────────────────────
+// Авторизация: GitHub PAT (fine-grained, Contents r/w + Actions r/w).
+// Порядок действий:
+//   1. (если есть файл) загрузка картинки → PUT /contents/_uploads/{tmp}
+//   2. POST /dispatches c client_payload {action, ...}
+//   3. Опрос /actions/runs до завершения workflow
 
 const STORAGE_KEY = 'lapteva-admin-creds';
 const API = 'https://api.github.com';
@@ -13,46 +13,58 @@ const $ = sel => document.querySelector(sel);
 let CREDS = null;
 let INDEX = null;
 
-// ──────────── Boot ────────────
+// ──────────── Запуск ────────────
 document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
       CREDS = JSON.parse(saved);
-      const r = $('#f-repo'), u = $('#f-user'), t = $('#f-token'), m = $('#f-remember');
-      if (r) r.value = CREDS.repo || '';
-      if (u) u.value = CREDS.user || '';
-      if (t) t.value = CREDS.token || '';
-      if (m) m.checked = true;
+      $('#f-repo').value = CREDS.repo || '';
+      $('#f-user').value = CREDS.user || '';
+      $('#f-token').value = CREDS.token || '';
+      $('#f-remember').checked = true;
     } catch {}
   }
   $('#login-form').addEventListener('submit', onLogin);
   $('#logout').addEventListener('click', onLogout);
   document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', onTabClick));
   $('#add-form').addEventListener('submit', onAddSubmit);
+  $('#series-form').addEventListener('submit', onSeriesSubmit);
   $('#remove-form').addEventListener('submit', onRemoveSubmit);
+  $('#remove-series-form').addEventListener('submit', onRemoveSeriesSubmit);
   $('#rm-series').addEventListener('change', onRmSeriesChange);
+
+  // Название серии → автоматический латинский адрес
+  $('#ns-title').addEventListener('input', () => {
+    const id = $('#ns-id');
+    if (!id.dataset.touched) {
+      id.value = translit($('#ns-title').value);
+      $('#ns-id-echo').textContent = id.value || '…';
+    }
+  });
+  $('#ns-id').addEventListener('input', e => {
+    e.target.dataset.touched = '1';
+    $('#ns-id-echo').textContent = e.target.value || '…';
+  });
 });
 
-// ──────────── Login ────────────
+// ──────────── Вход ────────────
 async function onLogin(e) {
   e.preventDefault();
   const repo = $('#f-repo').value.trim();
   const user = $('#f-user').value.trim();
   const token = $('#f-token').value.trim();
-  const remember = $('#f-remember').checked;
-  if (!repo.includes('/')) return showLoginError('Repo в формате owner/name');
+  if (!repo.includes('/')) return showLoginError('Репозиторий указывается в виде «имя-пользователя/название», например ivan/ekaterina-lapteva');
 
-  // Validate token
   try {
     const r = await fetch(`${API}/repos/${repo}`, { headers: ghHeaders(token) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
   } catch (err) {
-    return showLoginError('Не удалось проверить токен: ' + err.message);
+    return showLoginError('Не получилось войти. Проверьте: 1) нет ли опечатки в адресе репозитория; 2) не истёк ли срок ключа; 3) выданы ли ключу права Contents и Actions. (' + err.message + ')');
   }
 
   CREDS = { repo, user, token };
-  if (remember) localStorage.setItem(STORAGE_KEY, JSON.stringify(CREDS));
+  if ($('#f-remember').checked) localStorage.setItem(STORAGE_KEY, JSON.stringify(CREDS));
   else localStorage.removeItem(STORAGE_KEY);
 
   $('#login-screen').hidden = true;
@@ -80,26 +92,27 @@ function ghHeaders(token = CREDS?.token) {
   };
 }
 
-// ──────────── Tabs ────────────
+// ──────────── Вкладки ────────────
 function onTabClick(e) {
   const tab = e.currentTarget.dataset.tab;
   document.querySelectorAll('.tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === tab));
 }
 
-// ──────────── Index ────────────
+// ──────────── Каталог серий ────────────
 async function loadIndex() {
   const url = `https://raw.githubusercontent.com/${CREDS.repo}/HEAD/data/index.json?cb=${Date.now()}`;
   try {
     const r = await fetch(url);
-    if (!r.ok) throw new Error('index.json не найден; запустите workflow один раз вручную');
+    if (!r.ok) throw new Error('каталог не найден — возможно, сайт ещё ни разу не собирался');
     INDEX = await r.json();
   } catch (e) {
-    log('⚠ ' + e.message);
+    log('⚠ Не удалось загрузить список серий: ' + e.message);
     INDEX = { series: [] };
   }
   fillSeriesDropdown('#add-series');
   fillSeriesDropdown('#rm-series');
+  fillSeriesDropdown('#rms-series');
   onRmSeriesChange();
 }
 
@@ -113,79 +126,130 @@ function onRmSeriesChange() {
   const sid = $('#rm-series').value;
   const series = INDEX.series.find(s => s.id === sid);
   const sel = $('#rm-painting');
-  if (!series) {
-    sel.innerHTML = '<option value="">—</option>';
-    return;
-  }
+  if (!series) { sel.innerHTML = '<option value="">—</option>'; return; }
   sel.innerHTML = '<option value="">— выберите —</option>' +
     series.paintings.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
 }
 
-// ──────────── Add ────────────
+// ──────────── Добавить работу ────────────
 async function onAddSubmit(e) {
   e.preventDefault();
   const series = $('#add-series').value;
-  const title = $('#add-title').value.trim();
-  const material = $('#add-material').value.trim();
-  const size = $('#add-size').value.trim();
-  const year = $('#add-year').value.trim();
   const file = $('#add-file').files[0];
   if (!series || !file) return;
 
-  const btn = e.target.querySelector('button[type=submit]');
-  btn.disabled = true;
-  showLog();
-  try {
-    log(`→ Загрузка изображения (${file.name}, ${(file.size / 1024).toFixed(1)} KB)…`);
-    const ext = (file.name.match(/\.[^.]+$/) || ['.jpg'])[0].toLowerCase();
-    const tmpName = `tmp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
-    const b64 = await fileToBase64(file);
-    await uploadToRepo(`_uploads/${tmpName}`, b64, `Upload ${tmpName}`);
-    log(`✓ Загружено в _uploads/${tmpName}`);
-
-    log(`→ Триггерим workflow…`);
-    await dispatch({ action: 'add', series, title, material, size, year, upload: tmpName });
-    log(`✓ Запрос отправлен`);
-
-    log(`→ Ждём выполнения (это может занять 1–2 мин)…`);
-    await pollLastRun();
-    log(`✓ Готово. Откройте сайт через ~30 сек, чтобы увидеть изменения.`);
-    e.target.reset();
-    setTimeout(loadIndex, 3000);
-  } catch (err) {
-    log('✗ Ошибка: ' + err.message);
-  } finally {
-    btn.disabled = false;
-  }
+  await runJob(e.target, async () => {
+    const tmpName = await uploadImage(file);
+    log('→ Отправляю данные картины…');
+    await dispatch({
+      action: 'add',
+      series,
+      title: $('#add-title').value.trim(),
+      material: $('#add-material').value.trim(),
+      size: $('#add-size').value.trim(),
+      year: $('#add-year').value.trim(),
+      description: $('#add-desc').value.trim(),
+      upload: tmpName,
+    });
+  }, 'Картина добавлена! Откройте сайт через полминуты — если её не видно, обновите страницу через Ctrl+F5.');
 }
 
-// ──────────── Remove ────────────
+// ──────────── Новая серия ────────────
+async function onSeriesSubmit(e) {
+  e.preventDefault();
+  const file = $('#ns-file').files[0];
+  const id = $('#ns-id').value.trim();
+  if (!file || !id) return;
+  if (INDEX.series.some(s => s.id === id)) {
+    showLog();
+    log('✗ Серия с адресом «' + id + '» уже существует. Придумайте другой адрес.');
+    return;
+  }
+
+  await runJob(e.target, async () => {
+    const tmpName = await uploadImage(file);
+    log('→ Отправляю данные серии…');
+    await dispatch({
+      action: 'add_series',
+      id,
+      title: $('#ns-title').value.trim(),
+      material: $('#ns-material').value.trim(),
+      years: $('#ns-years').value.trim(),
+      description: $('#ns-desc').value.trim(),
+      upload: tmpName,
+    });
+  }, 'Серия создана! Теперь можно добавлять в неё работы на вкладке «Добавить работу».');
+}
+
+// ──────────── Удалить работу ────────────
 async function onRemoveSubmit(e) {
   e.preventDefault();
   const series = $('#rm-series').value;
   const title = $('#rm-painting').value;
   if (!series || !title) return;
-  if (!confirm(`Удалить «${title}»?`)) return;
+  if (!confirm(`Удалить картину «${title}» с сайта?\nЭто действие нельзя отменить.`)) return;
 
-  const btn = e.target.querySelector('button[type=submit]');
+  await runJob(e.target, async () => {
+    log('→ Отправляю запрос на удаление…');
+    await dispatch({ action: 'remove', series, title });
+  }, 'Картина удалена с сайта.');
+}
+
+// ──────────── Удалить серию ────────────
+async function onRemoveSeriesSubmit(e) {
+  e.preventDefault();
+  const sid = $('#rms-series').value;
+  const series = INDEX.series.find(s => s.id === sid);
+  if (!series) return;
+  const typed = $('#rms-confirm').value.trim().toLowerCase();
+  if (typed !== series.title.toLowerCase()) {
+    showLog();
+    log(`✗ Название не совпало. Чтобы удалить серию, впишите в поле подтверждения: ${series.title}`);
+    return;
+  }
+  if (!confirm(`Удалить серию «${series.title}» ЦЕЛИКОМ вместе со всеми ${series.paintings.length} работами?\nЭто действие нельзя отменить.`)) return;
+
+  await runJob(e.target, async () => {
+    log('→ Отправляю запрос на удаление серии…');
+    await dispatch({ action: 'remove_series', series: sid });
+  }, 'Серия полностью удалена с сайта.');
+}
+
+// ──────────── Общий сценарий задачи ────────────
+async function runJob(form, steps, doneMessage) {
+  const btn = form.querySelector('button[type=submit]');
   btn.disabled = true;
   showLog();
   try {
-    log(`→ Триггерим workflow…`);
-    await dispatch({ action: 'remove', series, title });
-    log(`✓ Запрос отправлен`);
-    log(`→ Ждём выполнения…`);
+    await steps();
+    log('→ Сайт обновляется, обычно это занимает 1–2 минуты. Подождите…');
     await pollLastRun();
-    log(`✓ Готово.`);
+    log('');
+    log('✓ Готово. ' + doneMessage);
+    form.reset();
+    const echo = $('#ns-id-echo'); if (echo) echo.textContent = '…';
+    const nsId = $('#ns-id'); if (nsId) delete nsId.dataset.touched;
     setTimeout(loadIndex, 3000);
   } catch (err) {
-    log('✗ Ошибка: ' + err.message);
+    log('');
+    log('✗ Что-то пошло не так: ' + err.message);
+    log('  Попробуйте ещё раз. Если не помогает — см. раздел «Если что-то не работает» в ADMIN_SETUP.md');
   } finally {
     btn.disabled = false;
   }
 }
 
-// ──────────── GitHub API helpers ────────────
+async function uploadImage(file) {
+  log(`→ Загружаю фотографию (${file.name}, ${(file.size / 1024 / 1024).toFixed(1)} МБ)…`);
+  const ext = (file.name.match(/\.[^.]+$/) || ['.jpg'])[0].toLowerCase();
+  const tmpName = `tmp-${Date.now()}-${Math.random().toString(36).slice(2, 8)}${ext}`;
+  const b64 = await fileToBase64(file);
+  await uploadToRepo(`_uploads/${tmpName}`, b64, `Upload ${tmpName}`);
+  log('✓ Фотография загружена');
+  return tmpName;
+}
+
+// ──────────── GitHub API ────────────
 async function uploadToRepo(path, base64, message) {
   const url = `${API}/repos/${CREDS.repo}/contents/${encodeURIComponent(path).replace(/%2F/g, '/')}`;
   const r = await fetch(url, {
@@ -195,7 +259,7 @@ async function uploadToRepo(path, base64, message) {
   });
   if (!r.ok) {
     const t = await r.text();
-    throw new Error(`upload failed: ${r.status} ${t.slice(0, 200)}`);
+    throw new Error(`не удалось загрузить файл: ${r.status} ${t.slice(0, 200)}`);
   }
 }
 
@@ -207,14 +271,13 @@ async function dispatch(payload) {
   });
   if (!r.ok) {
     const t = await r.text();
-    throw new Error(`dispatch failed: ${r.status} ${t.slice(0, 200)}`);
+    throw new Error(`не удалось запустить обновление: ${r.status} ${t.slice(0, 200)}`);
   }
 }
 
 async function pollLastRun() {
   const start = Date.now();
   let runId = null;
-  // Wait for run to appear
   while (Date.now() - start < 30_000) {
     const r = await fetch(`${API}/repos/${CREDS.repo}/actions/runs?event=repository_dispatch&per_page=5`, { headers: ghHeaders() });
     const j = await r.json();
@@ -222,30 +285,41 @@ async function pollLastRun() {
     if (recent.length) { runId = recent[0].id; break; }
     await sleep(2500);
   }
-  if (!runId) throw new Error('workflow run не обнаружен');
-  log(`  · run #${runId}`);
+  if (!runId) throw new Error('обновление не запустилось (workflow run не найден)');
 
+  let dots = 0;
   while (Date.now() - start < 5 * 60_000) {
     const r = await fetch(`${API}/repos/${CREDS.repo}/actions/runs/${runId}`, { headers: ghHeaders() });
     const j = await r.json();
     if (j.status === 'completed') {
       if (j.conclusion !== 'success') {
-        throw new Error(`workflow завершился со статусом: ${j.conclusion}. Лог: ${j.html_url}`);
+        throw new Error(`обновление завершилось с ошибкой (${j.conclusion}). Подробности: ${j.html_url}`);
       }
       return;
     }
-    log(`  · ${j.status}…`);
+    dots = (dots % 3) + 1;
+    log('  · выполняется' + '.'.repeat(dots));
     await sleep(5000);
   }
-  throw new Error('таймаут ожидания workflow');
+  throw new Error('обновление длится слишком долго — проверьте вкладку Actions на GitHub');
 }
 
-// ──────────── Utils ────────────
+// ──────────── Утилиты ────────────
+function translit(s) {
+  const map = { а:'a',б:'b',в:'v',г:'g',д:'d',е:'e',ё:'e',ж:'zh',з:'z',и:'i',й:'y',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'h',ц:'ts',ч:'ch',ш:'sh',щ:'sch',ъ:'',ы:'y',ь:'',э:'e',ю:'yu',я:'ya' };
+  return s.toLowerCase()
+    .split('').map(c => map[c] !== undefined ? map[c] : c).join('')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/^[^a-z]+/, '')
+    .slice(0, 30);
+}
+
 function fileToBase64(file) {
   return new Promise((res, rej) => {
     const r = new FileReader();
     r.onload = () => res(r.result.split(',')[1]);
-    r.onerror = () => rej(new Error('read failed'));
+    r.onerror = () => rej(new Error('не удалось прочитать файл'));
     r.readAsDataURL(file);
   });
 }
@@ -263,6 +337,13 @@ function showLog() {
 
 function log(msg) {
   const el = $('#log-text');
-  el.textContent += msg + '\n';
+  // строки «· выполняется...» заменяют друг друга, чтобы журнал не разрастался
+  const lines = el.textContent.split('\n');
+  if (msg.startsWith('  ·') && lines.length && lines[lines.length - 1].startsWith('  ·')) {
+    lines[lines.length - 1] = msg;
+    el.textContent = lines.join('\n');
+  } else {
+    el.textContent += (el.textContent ? '\n' : '') + msg;
+  }
   el.scrollTop = el.scrollHeight;
 }

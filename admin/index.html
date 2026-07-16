@@ -3,64 +3,161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Админ — Лаптева</title>
+  <title>Управление сайтом — Екатерина Лаптева</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main id="app">
-    <!-- LOGIN -->
-    <section class="card" id="login-screen">
-      <h1>Вход</h1>
-      <p class="hint">GitHub username + Personal Access Token (fine-grained, права <code>Contents: read/write</code> и <code>Actions: read/write</code> для целевого репозитория).</p>
+
+    <!-- ВХОД -->
+    <section class="sheet" id="login-screen">
+      <header class="sheet-head">
+        <p class="sheet-label">Екатерина Лаптева · Сайт</p>
+        <h1 class="sheet-title">Вход в управление</h1>
+      </header>
+
+      <p class="intro">
+        Здесь можно добавлять и удалять картины на сайте, а также создавать новые серии.
+        Для входа нужен ключ доступа — длинный код, начинающийся с
+        <code>github_pat_</code>. Если ключа нет или он перестал работать —
+        загляните в инструкцию <b>ADMIN_SETUP.md</b> (шаг «Создать Personal Access Token»).
+      </p>
+
       <form id="login-form">
-        <label>Repo (owner/name)<input id="f-repo" required placeholder="username/ekaterina-lapteva" /></label>
-        <label>GitHub username<input id="f-user" required autocomplete="username" /></label>
-        <label>Personal Access Token<input id="f-token" type="password" required autocomplete="current-password" /></label>
-        <label class="checkbox"><input id="f-remember" type="checkbox" /> Запомнить в этом браузере</label>
-        <button type="submit">Войти</button>
+        <label>Репозиторий
+          <input id="f-repo" required placeholder="username/ekaterina-lapteva" />
+          <span class="field-hint">Адрес проекта на GitHub в виде «имя-пользователя/название»</span>
+        </label>
+        <label>Имя пользователя GitHub
+          <input id="f-user" required autocomplete="username" />
+        </label>
+        <label>Ключ доступа (токен)
+          <input id="f-token" type="password" required autocomplete="current-password" placeholder="github_pat_…" />
+        </label>
+        <label class="checkbox">
+          <input id="f-remember" type="checkbox" />
+          <span>Запомнить на этом компьютере <em>(не ставьте галочку на чужом)</em></span>
+        </label>
+        <button type="submit" class="btn">Войти</button>
       </form>
       <p class="error" id="login-error" hidden></p>
     </section>
 
-    <!-- WORKSPACE -->
-    <section class="workspace" id="workspace" hidden>
-      <header class="ws-head">
-        <h1>Управление картинами</h1>
+    <!-- РАБОЧАЯ ОБЛАСТЬ -->
+    <section class="sheet" id="workspace" hidden>
+      <header class="sheet-head with-logout">
+        <div>
+          <p class="sheet-label">Екатерина Лаптева · Сайт</p>
+          <h1 class="sheet-title">Управление работами</h1>
+        </div>
         <button class="link" id="logout">Выйти</button>
       </header>
 
       <nav class="tabs">
-        <button class="tab active" data-tab="add">Добавить</button>
+        <button class="tab active" data-tab="add">Добавить работу</button>
+        <button class="tab" data-tab="series">Новая серия</button>
         <button class="tab" data-tab="remove">Удалить</button>
       </nav>
 
-      <!-- ADD -->
+      <!-- ДОБАВИТЬ РАБОТУ -->
       <div class="tab-pane active" data-pane="add">
+        <p class="pane-intro">Картина появится в выбранной серии: и на главной странице, и на странице серии. Обычно это занимает 1–2 минуты.</p>
         <form id="add-form">
-          <label>Серия<select id="add-series" required></select></label>
-          <label>Название<input id="add-title" required maxlength="120" /></label>
-          <label>Материалы<input id="add-material" required placeholder="Холст, масло, пастель" /></label>
-          <label>Размер<input id="add-size" required placeholder="100×80 см" /></label>
-          <label>Год<input id="add-year" required placeholder="2026" /></label>
-          <label>Файл изображения
-            <input id="add-file" type="file" accept="image/jpeg,image/png,image/webp" required />
+          <label>Серия
+            <select id="add-series" required></select>
+            <span class="field-hint">В какую серию добавить работу. Если нужной серии нет — создайте её на вкладке «Новая серия»</span>
           </label>
-          <button type="submit">Добавить картину</button>
+          <label>Название картины
+            <input id="add-title" required maxlength="120" placeholder="Закат над морем" />
+            <span class="field-hint">Без кавычек — они не нужны</span>
+          </label>
+          <label>Материалы
+            <input id="add-material" required placeholder="Холст, масло, пастель" />
+          </label>
+          <label>Размер
+            <input id="add-size" placeholder="100×80 см" />
+            <span class="field-hint">Например «100×80 см» или «А4». Можно оставить пустым</span>
+          </label>
+          <label>Год
+            <input id="add-year" required placeholder="2026" pattern="\d{4}" />
+          </label>
+          <label>Рассказ о работе <span class="opt">— необязательно</span>
+            <textarea id="add-desc" rows="4" placeholder="История создания, смысл, детали…"></textarea>
+            <span class="field-hint">Появится на странице серии под характеристиками работы</span>
+          </label>
+          <label>Фотография картины
+            <input id="add-file" type="file" accept="image/jpeg,image/png,image/webp" required />
+            <span class="field-hint">JPG или PNG. Файл сам переименуется по названию картины</span>
+          </label>
+          <button type="submit" class="btn">Добавить картину</button>
         </form>
       </div>
 
-      <!-- REMOVE -->
+      <!-- НОВАЯ СЕРИЯ -->
+      <div class="tab-pane" data-pane="series">
+        <p class="pane-intro">Создаётся новая серия: отдельная страница и карусель на главной. После создания добавляйте в неё работы на вкладке «Добавить работу».</p>
+        <form id="series-form">
+          <label>Название серии
+            <input id="ns-title" required maxlength="80" placeholder="Цветы и свет" />
+          </label>
+          <label>Адрес страницы <span class="opt">— заполнится сам</span>
+            <input id="ns-id" required pattern="[a-z][a-z0-9-]{1,30}" placeholder="flowers" />
+            <span class="field-hint">Латинские буквы без пробелов. Станет частью адреса: <code>series-<b id="ns-id-echo">…</b>.html</code></span>
+          </label>
+          <label>Материалы серии
+            <input id="ns-material" required placeholder="Холст, масло, акрил" />
+          </label>
+          <label>Годы <span class="opt">— необязательно</span>
+            <input id="ns-years" placeholder="2026" />
+            <span class="field-hint">Можно не заполнять — посчитаются сами по добавленным работам</span>
+          </label>
+          <label>Описание серии
+            <textarea id="ns-desc" rows="5" required placeholder="О чём эта серия, как возникла, что объединяет работы…"></textarea>
+            <span class="field-hint">Пустая строка между абзацами = новый абзац на сайте</span>
+          </label>
+          <label>Обложка серии
+            <input id="ns-file" type="file" accept="image/jpeg,image/png,image/webp" required />
+            <span class="field-hint">Большая картинка в шапке страницы серии. Подойдёт фото одной из работ</span>
+          </label>
+          <button type="submit" class="btn">Создать серию</button>
+        </form>
+      </div>
+
+      <!-- УДАЛИТЬ -->
       <div class="tab-pane" data-pane="remove">
+        <p class="pane-intro">Картина исчезнет с главной страницы и со страницы серии, файл фотографии тоже удалится.</p>
         <form id="remove-form">
-          <label>Серия<select id="rm-series" required></select></label>
-          <label>Картина<select id="rm-painting" required></select></label>
-          <button type="submit" class="danger">Удалить</button>
+          <label>Серия
+            <select id="rm-series" required></select>
+          </label>
+          <label>Картина
+            <select id="rm-painting" required></select>
+          </label>
+          <button type="submit" class="btn danger">Удалить картину</button>
         </form>
+
+        <details class="danger-zone">
+          <summary>Удалить серию целиком…</summary>
+          <p class="pane-intro">Удаляется страница серии, её блок на главной и <b>все фотографии работ</b> этой серии. Отменить нельзя.</p>
+          <form id="remove-series-form">
+            <label>Серия
+              <select id="rms-series" required></select>
+            </label>
+            <label>Подтверждение
+              <input id="rms-confirm" required placeholder="Введите название серии" autocomplete="off" />
+              <span class="field-hint">Чтобы случайно не удалить — впишите название серии в точности</span>
+            </label>
+            <button type="submit" class="btn danger">Удалить серию навсегда</button>
+          </form>
+        </details>
       </div>
 
-      <!-- LOG -->
+      <!-- СТАТУС -->
       <div class="log" id="log" hidden>
-        <h2>Статус</h2>
+        <p class="log-title">Что происходит</p>
         <pre id="log-text"></pre>
       </div>
     </section>

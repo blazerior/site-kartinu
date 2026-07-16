@@ -1,64 +1,172 @@
-* { box-sizing: border-box; }
+/* Админка — оформление в стиле сайта ekaterina-lapteva.com */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --cream:  #EFEDE6;
+  --paper:  #FFFFFF;
+  --ink:    #15171A;
+  --text:   #2A2D33;
+  --mid:    #5A5E66;
+  --muted:  #8A8E96;
+  --border: #D8D6CF;
+  --danger: #8C2B2B;
+  --serif:  'Playfair Display', Georgia, serif;
+  --alt:    'Cormorant Garamond', Georgia, serif;
+}
+
 body {
-  margin: 0; min-height: 100vh;
-  background: #f5f4ef; color: #1a1a1a;
-  font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
-  display: flex; align-items: flex-start; justify-content: center;
-  padding: 2rem 1rem;
-}
-#app { width: 100%; max-width: 640px; }
-h1 { margin: 0 0 1rem; font-size: 1.4rem; font-weight: 500; }
-h2 { margin: 1.5rem 0 0.5rem; font-size: 1rem; font-weight: 500; color: #555; }
-
-.card, .workspace {
-  background: #fff; padding: 1.5rem; border: 1px solid #ddd;
-  border-radius: 4px;
+  min-height: 100vh;
+  background: var(--cream);
+  color: var(--text);
+  font-family: var(--alt);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vh, 4rem) 1rem;
+  -webkit-font-smoothing: antialiased;
 }
 
-label { display: block; margin: 0.75rem 0; font-size: 0.85rem; color: #333; }
-input, select, button {
-  display: block; width: 100%; padding: 0.55rem 0.75rem;
-  font: inherit; border: 1px solid #ccc; border-radius: 3px;
-  background: #fff; margin-top: 0.25rem;
-}
-input:focus, select:focus { outline: 2px solid #1a1a1a; outline-offset: -1px; }
+#app { width: 100%; max-width: 660px; }
 
-label.checkbox { display: flex; align-items: center; gap: 0.5rem; }
+/* ── Лист ─────────────────────────────────────────── */
+.sheet {
+  background: var(--paper);
+  padding: clamp(1.75rem, 4vw, 3rem);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 30px 60px -30px rgba(0,0,0,0.18);
+}
+.sheet + .sheet { margin-top: 2rem; }
+
+.sheet-head { padding-bottom: 1.25rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.sheet-head.with-logout { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+
+.sheet-label {
+  font-family: var(--serif); font-size: 0.68rem; font-weight: 400;
+  letter-spacing: 0.34em; text-transform: uppercase; color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.sheet-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(1.4rem, 4vw, 1.9rem); letter-spacing: 0.06em;
+  color: var(--ink); line-height: 1.15;
+}
+
+.intro, .pane-intro { color: var(--mid); margin-bottom: 1.5rem; }
+.pane-intro { font-size: 1rem; }
+code {
+  background: #F3F1EA; padding: 1px 6px; border-radius: 2px;
+  font-size: 0.82em; font-family: Consolas, monospace; color: var(--ink);
+}
+
+/* ── Поля ─────────────────────────────────────────── */
+label {
+  display: block; margin: 0 0 1.1rem;
+  font-family: var(--serif); font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink);
+}
+.opt { font-weight: 400; text-transform: none; letter-spacing: 0.02em; color: var(--muted); }
+
+input, select, textarea {
+  display: block; width: 100%; margin-top: 0.4rem;
+  padding: 0.65rem 0.8rem;
+  font-family: var(--alt); font-size: 1.05rem; color: var(--text);
+  background: var(--paper);
+  border: 1px solid var(--border); border-radius: 0;
+  letter-spacing: normal; text-transform: none; font-weight: 400;
+}
+textarea { resize: vertical; line-height: 1.55; }
+input:focus, select:focus, textarea:focus {
+  outline: none; border-color: var(--ink);
+}
+input[type="file"] { padding: 0.5rem; font-size: 0.95rem; cursor: pointer; }
+input[type="file"]::file-selector-button {
+  font-family: var(--serif); font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--ink); color: #fff; border: none; padding: 0.55rem 1rem;
+  margin-right: 0.9rem; cursor: pointer;
+}
+
+.field-hint {
+  display: block; margin-top: 0.35rem;
+  font-family: var(--alt); font-size: 0.92rem; font-weight: 400;
+  letter-spacing: 0.02em; text-transform: none; font-style: italic;
+  color: var(--muted); line-height: 1.45;
+}
+.field-hint code { font-style: normal; }
+
+label.checkbox {
+  display: flex; align-items: baseline; gap: 0.6rem;
+  font-family: var(--alt); font-size: 1rem; font-weight: 400;
+  letter-spacing: 0.02em; text-transform: none; color: var(--text);
+}
 label.checkbox input { width: auto; margin: 0; }
+label.checkbox em { color: var(--muted); font-style: italic; }
 
-button {
-  cursor: pointer; background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a;
-  font-weight: 500; letter-spacing: 0.04em; margin-top: 1.25rem;
-  transition: background 0.15s;
+/* ── Кнопки ───────────────────────────────────────── */
+.btn {
+  display: block; width: 100%; margin-top: 1.5rem;
+  font-family: var(--serif); font-weight: 500; font-size: 0.76rem;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: #fff; background: var(--ink);
+  padding: 1rem 1.5rem; border: 1px solid var(--ink); cursor: pointer;
+  transition: background 0.25s ease, color 0.25s ease;
 }
-button:hover:not(:disabled) { background: #333; }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
-button.link { background: transparent; color: #555; border: none; padding: 0; width: auto; margin: 0; font-size: 0.85rem; text-decoration: underline; }
-button.danger { background: #a02c2c; border-color: #a02c2c; }
-button.danger:hover:not(:disabled) { background: #c33; }
+.btn:hover:not(:disabled) { background: transparent; color: var(--ink); }
+.btn:disabled { opacity: 0.45; cursor: wait; }
+.btn.danger { background: var(--danger); border-color: var(--danger); }
+.btn.danger:hover:not(:disabled) { background: transparent; color: var(--danger); }
 
-.hint { font-size: 0.82rem; color: #666; line-height: 1.5; margin: 0 0 1rem; }
-.error { color: #a02c2c; font-size: 0.85rem; margin-top: 0.75rem; }
-code { background: #f0efea; padding: 1px 5px; border-radius: 2px; font-size: 0.85em; }
+.link {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--serif); font-size: 0.7rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--border); padding: 0 0 2px;
+}
+.link:hover { color: var(--ink); border-color: var(--ink); }
 
-.ws-head { display: flex; justify-content: space-between; align-items: center; }
-
-.tabs { display: flex; gap: 1px; background: #ddd; margin: 1.5rem 0 1rem; border-radius: 3px; overflow: hidden; }
+/* ── Вкладки ──────────────────────────────────────── */
+.tabs { display: flex; border-bottom: 1.5px solid var(--ink); margin-bottom: 1.75rem; }
 .tab {
-  flex: 1; margin: 0; padding: 0.6rem; background: #f5f4ef; color: #555;
-  border: none; font-size: 0.85rem; letter-spacing: 0.06em;
-  text-transform: uppercase; cursor: pointer;
+  flex: 1; background: none; border: none; cursor: pointer;
+  font-family: var(--serif); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+  padding: 0.85rem 0.25rem; transition: color 0.2s ease, background 0.2s ease;
 }
-.tab.active { background: #1a1a1a; color: #fff; }
+.tab:hover { color: var(--ink); }
+.tab.active { color: #fff; background: var(--ink); }
 
 .tab-pane { display: none; }
 .tab-pane.active { display: block; }
 
-.log {
-  margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #eee;
+/* ── Опасная зона ─────────────────────────────────── */
+.danger-zone { margin-top: 2.5rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+.danger-zone summary {
+  cursor: pointer; font-family: var(--serif); font-size: 0.74rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--danger);
+}
+.danger-zone[open] summary { margin-bottom: 1rem; }
+
+/* ── Ошибки и журнал ──────────────────────────────── */
+.error {
+  color: var(--danger); margin-top: 1rem; font-size: 1rem;
+  border-left: 2px solid var(--danger); padding-left: 0.75rem;
+}
+
+.log { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.25rem; }
+.log-title {
+  font-family: var(--serif); font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.24em; text-transform: uppercase; color: var(--mid);
+  margin-bottom: 0.75rem;
 }
 .log pre {
-  background: #1a1a1a; color: #fafafa; padding: 0.75rem; border-radius: 3px;
-  font-size: 0.78rem; line-height: 1.5; max-height: 280px; overflow: auto;
+  background: var(--ink); color: #F5F4EF;
+  padding: 1rem 1.1rem; font-size: 0.83rem; line-height: 1.65;
+  font-family: Consolas, 'Courier New', monospace;
+  max-height: 300px; overflow: auto;
   white-space: pre-wrap; word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .tabs { flex-direction: column; border-bottom: none; border-left: 1.5px solid var(--ink); }
+  .tab { text-align: left; padding-left: 0.9rem; }
 }
