@@ -263,7 +263,19 @@ async function uploadToRepo(path, base64, message) {
   }
 }
 
+let LAST_SEEN_RUN = null; // id последнего запуска ДО нашего dispatch
+
+async function newestRunId() {
+  const r = await fetch(`${API}/repos/${CREDS.repo}/actions/runs?per_page=1`, { headers: ghHeaders() });
+  const j = await r.json();
+  return (j.workflow_runs && j.workflow_runs[0]) ? j.workflow_runs[0].id : 0;
+}
+
 async function dispatch(payload) {
+  // Запоминаем последний существующий запуск, чтобы потом ждать именно НОВЫЙ
+  // (сравнение по id, а не по времени — не зависит от часов компьютера).
+  try { LAST_SEEN_RUN = await newestRunId(); } catch { LAST_SEEN_RUN = null; }
+
   const r = await fetch(`${API}/repos/${CREDS.repo}/dispatches`, {
     method: 'POST',
     headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
@@ -278,11 +290,17 @@ async function dispatch(payload) {
 async function pollLastRun() {
   const start = Date.now();
   let runId = null;
-  while (Date.now() - start < 30_000) {
-    const r = await fetch(`${API}/repos/${CREDS.repo}/actions/runs?event=repository_dispatch&per_page=5`, { headers: ghHeaders() });
+  while (Date.now() - start < 90_000) {
+    const r = await fetch(`${API}/repos/${CREDS.repo}/actions/runs?event=repository_dispatch&per_page=10`, { headers: ghHeaders() });
     const j = await r.json();
-    const recent = (j.workflow_runs || []).filter(x => Date.now() - new Date(x.created_at).getTime() < 120_000);
-    if (recent.length) { runId = recent[0].id; break; }
+    let runs = (j.workflow_runs || []).filter(x => !x.path || x.path.endsWith('update-paintings.yml'));
+    if (LAST_SEEN_RUN !== null) {
+      runs = runs.filter(x => x.id > LAST_SEEN_RUN);
+    } else {
+      // запасной вариант: по времени, с допуском на расхождение часов до 10 минут
+      runs = runs.filter(x => Math.abs(Date.now() - new Date(x.created_at).getTime()) < 600_000);
+    }
+    if (runs.length) { runId = runs[0].id; break; }
     await sleep(2500);
   }
   if (!runId) throw new Error('обновление не запустилось (workflow run не найден)');
