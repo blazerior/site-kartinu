@@ -873,7 +873,7 @@
       "title": "Керамика",
       "title_en": null,
       "meta_description": "Серия «Керамика» — Екатерина Лаптева. Шамот, глазурь, стекло.",
-      "years": "2022–2023",
+      "years": "2022–2079",
       "materials": "Шамот, глазурь, стекло",
       "materials_en": "Chamotte, glaze, glass",
       "hero_image": "images/ящик пандоры.jpg",
@@ -959,6 +959,17 @@
             "images/упущенное время 2.jpg"
           ],
           "description_html": null
+        },
+        {
+          "title": "Тест 2",
+          "i18n": null,
+          "material": "отличные",
+          "size": "200х400 см",
+          "year": "2079",
+          "images": [
+            "images/Тест 2.jpg"
+          ],
+          "description_html": "<p>ЫЫ</p>"
         }
       ]
     }
