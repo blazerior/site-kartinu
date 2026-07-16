@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ s.title }} — Екатерина Лаптева</title>
+  <meta name="description" content="{{ s.meta_description }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+{%- if s.video %}
+  <style>
+    .desc-with-video { display: grid; grid-template-columns: 1fr 280px; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
+    .wind-video { position: relative; aspect-ratio: 9/16; background: #1a1a1a; overflow: hidden; cursor: pointer; }
+    .wind-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .wind-video-play {
+      position: absolute; inset: 0; display: grid; place-items: center;
+      background: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.3));
+      border: none; color: #fff; cursor: pointer;
+      transition: background 0.3s ease; padding: 0;
+    }
+    .wind-video-play:hover { background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.45)); }
+    .wind-video-play svg { width: 64px; height: 64px; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.4)); transition: transform 0.3s ease; }
+    .wind-video-play:hover svg { transform: scale(1.08); }
+    .wind-video.playing .wind-video-play { opacity: 0; pointer-events: none; }
+    .wind-video-caption { font-family: var(--font-serif); font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin-top: 0.75rem; text-align: center; }
+    @media (max-width: 720px) {
+      .desc-with-video { grid-template-columns: 1fr; }
+      .wind-video { max-width: 280px; margin: 1rem auto 0; }
+    }
+  </style>
+{%- endif %}
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=109042510', 'ym');
+
+    ym(109042510, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/109042510" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+  <link rel="canonical" href="{{ base_url }}{{ s.page }}" />
+</head>
+<body>
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Основная навигация">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" data-i18n="nav.logo">ЕКАТЕРИНА ЛАПТЕВА</a>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html#hero" class="nav-link" data-i18n="nav.home">Главная</a></li>
+        <li><a href="index.html#about" class="nav-link" data-i18n="nav.about">Обо мне</a></li>
+        <li><a href="index.html#works" class="nav-link active" data-i18n="nav.works">Работы</a></li>
+        <li><a href="index.html#contacts" class="nav-link" data-i18n="nav.contacts">Контакты</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="lang-switch" role="group" aria-label="Язык">
+          <button class="lang-btn active" data-lang="ru" aria-pressed="true">RU</button>
+          <span class="lang-sep">|</span>
+          <button class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+    <button class="overlay-close" id="overlayClose" aria-label="Закрыть меню">✕</button>
+    <ul role="list">
+      <li><a href="index.html#hero" class="overlay-link" data-i18n="nav.home">Главная</a></li>
+      <li><a href="index.html#about" class="overlay-link" data-i18n="nav.about">Обо мне</a></li>
+      <li><a href="index.html#works" class="overlay-link" data-i18n="nav.works">Работы</a></li>
+      <li><a href="index.html#contacts" class="overlay-link" data-i18n="nav.contacts">Контакты</a></li>
+    </ul>
+    <div class="overlay-lang">
+      <button class="lang-btn active" data-lang="ru">RU</button><span class="lang-sep">|</span><button class="lang-btn" data-lang="en">EN</button>
+    </div>
+  </div>
+
+  <section class="series-hero" aria-label="Серия {{ s.title }}">
+    <div class="series-hero-bg"><img src="{{ s.hero_image }}" alt="" aria-hidden="true" loading="eager" /></div>
+    <div class="series-hero-content">
+      <a href="index.html#works" class="series-hero-back reveal">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span data-i18n="nav.works">Работы</span>
+      </a>
+      <p class="series-hero-label reveal" data-i18n="series.label">Серия</p>
+      <h1 class="series-hero-title reveal" data-i18n="{{ s.i18n_key }}">{{ s.title }}</h1>
+    </div>
+  </section>
+
+  <section class="series-description">
+    <div class="container">
+      <div class="desc-grid">
+        <div class="desc-meta reveal">
+          <div class="desc-meta-item"><p class="desc-meta-label" data-i18n="meta.years">Годы</p><p class="desc-meta-value">{{ s.years }}</p></div>
+          <div class="desc-meta-item"><p class="desc-meta-label" data-i18n="meta.works">Работ в серии</p><p class="desc-meta-value" data-i18n="meta.works.count">{{ s.works|length }}</p></div>
+          <div class="desc-meta-item"><p class="desc-meta-label" data-i18n="meta.material">Материалы</p><p class="desc-meta-value" data-i18n="meta.material.val">{{ s.materials }}</p></div>
+        </div>
+        <div class="desc-text-wrap reveal">
+{%- if s.video %}
+          <div class="desc-with-video">
+            <div>
+              <div class="desc-collapse collapsed" id="descCollapse">
+                <div class="desc-text">
+                  {{ s.description_html }}
+                </div>
+              </div>
+              <button class="desc-toggle" id="descToggle" aria-expanded="false">
+                <span class="desc-toggle-text" data-i18n="toggle.more">Читать полностью</span>
+                <span class="desc-toggle-icon" aria-hidden="true">↓</span>
+              </button>
+            </div>
+            <div>
+              <div class="wind-video" id="windVideoBox">
+                <video id="windVideo" preload="metadata" playsinline poster="{{ s.video.poster }}">
+                  <source src="{{ s.video.src }}" type="video/mp4">
+                  <source src="{{ s.video.src }}" type="video/quicktime">
+                </video>
+                <button type="button" class="wind-video-play" id="windVideoPlay" aria-label="Воспроизвести видео">
+                  <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                    <circle cx="32" cy="32" r="31" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M26 22l16 10-16 10z" fill="currentColor"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="wind-video-caption">{{ s.video.caption }}</p>
+            </div>
+          </div>
+          <script>
+            (function(){
+              var box = document.getElementById('windVideoBox');
+              var video = document.getElementById('windVideo');
+              var btn = document.getElementById('windVideoPlay');
+              if (!box || !video || !btn) return;
+              function play(){
+                video.setAttribute('controls','controls');
+                box.classList.add('playing');
+                video.play().catch(function(){});
+              }
+              btn.addEventListener('click', function(e){ e.stopPropagation(); play(); });
+              video.addEventListener('ended', function(){
+                box.classList.remove('playing');
+                video.removeAttribute('controls');
+                video.currentTime = 0;
+              });
+            })();
+          </script>
+{%- else %}
+          <div class="desc-collapse collapsed" id="descCollapse">
+            <div class="desc-text">
+              {{ s.description_html }}
+            </div>
+          </div>
+          <button class="desc-toggle" id="descToggle" aria-expanded="false">
+            <span class="desc-toggle-text" data-i18n="toggle.more">Читать полностью</span>
+            <span class="desc-toggle-icon" aria-hidden="true">↓</span>
+          </button>
+{%- endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="series-gallery">
+    <div class="container"><div class="works-list">
+{% for w in s.works %}{% set n = loop.index %}
+      <article class="work-item reveal" id="work-{{ n }}">
+        <div class="work-images">
+          <div class="work-main-img"><img src="{{ w.images[0] }}" alt="{{ w.title }}" loading="lazy" id="main-w{{ n }}" /></div>
+{%- if w.images|length > 1 %}
+          <div class="work-thumbs">
+{%- for img in w.images %}
+            <div class="work-thumb{% if loop.first %} active{% endif %}" data-main="main-w{{ n }}" data-src="{{ img }}" data-alt="{{ w.title }}{% if not loop.first %} — ракурс {{ loop.index }}{% endif %}"><img src="{{ img }}" alt="" loading="lazy" /></div>
+{%- endfor %}
+          </div>
+{%- endif %}
+        </div>
+        <div class="work-info"><p class="work-number">{{ '%02d'|format(n) }} / {{ '%02d'|format(s.works|length) }}</p><h2 class="work-title">{{ w.title }}</h2>
+          <div class="work-details">
+            <div class="work-detail-row"><span class="work-detail-key" data-i18n="detail.material">Материал</span><span class="work-detail-val">{{ w.material }}</span></div>
+{%- if w.size %}
+            <div class="work-detail-row"><span class="work-detail-key" data-i18n="detail.size">Размер</span><span class="work-detail-val">{{ w.size }}</span></div>
+{%- endif %}
+            <div class="work-detail-row"><span class="work-detail-key" data-i18n="detail.year">Год</span><span class="work-detail-val">{{ w.year }}</span></div>
+          </div>
+{%- if w.description_html %}
+          <div class="work-description">
+            {{ w.description_html }}
+          </div>
+{%- endif %}
+        </div>
+      </article>
+{% endfor %}
+    </div></div>
+  </section>
+
+  <footer class="footer" role="contentinfo"><div class="container"><p class="footer-copy">© 2026 <span data-i18n="footer.name">Екатерина Лаптева</span></p></div></footer>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+    <div class="lightbox-img-wrap">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Закрыть">ESC / закрыть</button>
+      <button class="lightbox-prev" id="lightboxPrev" aria-label="Предыдущее">‹</button>
+      <img src="" alt="" id="lightboxImg" />
+      <button class="lightbox-next" id="lightboxNext" aria-label="Следующее">›</button>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+  <script src="script.js"></script>
+  <script>window.SERIES_TRANSLATIONS={ru:{'series.label':'Серия','meta.years':'Годы','meta.works':'Работ в серии','meta.works.count':'{{ s.works|length }}','meta.material':'Материалы','meta.material.val':'{{ s.materials|replace("'", "\\'") }}','toggle.more':'Читать полностью','toggle.less':'Свернуть','detail.material':'Материал','detail.year':'Год','detail.size':'Размер'},en:{'series.label':'Series','meta.years':'Years','meta.works':'Works in series','meta.works.count':'{{ s.works|length }}','meta.material':'Materials','meta.material.val':'{{ (s.materials_en or s.materials)|replace("'", "\\'") }}','toggle.more':'Read more','toggle.less':'Collapse','detail.material':'Material','detail.year':'Year','detail.size':'Size'}};</script>
+  <script src="series-page.js"></script>
+</body>
+</html>

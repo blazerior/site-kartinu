@@ -1,0 +1,21 @@
+{% for s in series %}
+      <!-- {{ s.title }} -->
+      <article class="series reveal" data-series="{{ s.id }}">
+        <div class="container">
+          <div class="series-header">
+            <h3 class="series-title" data-i18n="{{ s.i18n_key }}">{{ s.title }}</h3>
+            <a href="{{ s.page }}" class="series-btn" data-i18n="series.btn">Смотреть серию</a>
+          </div>
+        </div>
+        <div class="carousel-wrap">
+          <div class="carousel" role="list">
+{%- for w in s.works %}
+            <div class="card" role="listitem">
+              <img src="{{ w.images[0] }}" alt="{{ w.title }}" loading="lazy" />
+              <p class="card-caption"><span{% if w.i18n %} data-i18n="{{ w.i18n }}.title"{% endif %}>{{ w.title }}</span> · <span{% if w.i18n %} data-i18n="{{ w.i18n }}.mat"{% endif %}>{{ w.material }}</span>{% if w.size %} · {{ w.size }}{% endif %} · {{ w.year }}</p>
+            </div>
+{%- endfor %}
+          </div>
+        </div>
+      </article>
+{% endfor %}
