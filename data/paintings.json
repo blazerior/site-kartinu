@@ -961,6 +961,21 @@
           "description_html": null
         }
       ]
+    },
+    {
+      "id": "svetilo",
+      "page": "series-svetilo.html",
+      "i18n_key": "series.svetilo",
+      "title": "Светила",
+      "title_en": null,
+      "meta_description": "Серия «Светила» — Екатерина Лаптева. Бумага, акварель, гуашь, карандаш, масленный карандаш, пастель, воск..",
+      "years": "2026",
+      "materials": "Бумага, акварель, гуашь, карандаш, масленный карандаш, пастель, воск.",
+      "materials_en": null,
+      "hero_image": "images/Светила обложка.jpeg",
+      "description_html": "<p>Светила - Любые тела во Вселенной, которые  излучают собственный или отраженный свет.</p>",
+      "video": null,
+      "works": []
     }
   ]
 }
