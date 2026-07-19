@@ -135,7 +135,9 @@
     {
       "id": "svetilo",
       "title": "Светила",
-      "paintings": []
+      "paintings": [
+        "Первая луна"
+      ]
     }
   ]
 }
