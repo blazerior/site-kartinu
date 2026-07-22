@@ -1008,6 +1008,17 @@
             "images/Солнце среди лун.jpeg"
           ],
           "description_html": null
+        },
+        {
+          "title": "Цветок",
+          "i18n": null,
+          "material": "Холст, масло, масленный карандаш.",
+          "size": "80 х 80",
+          "year": "2026",
+          "images": [
+            "images/Цветок.jpeg"
+          ],
+          "description_html": null
         }
       ]
     }
